@@ -6,6 +6,7 @@ import (
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/validation"
 	"github.com/hemilioaraujo/first-go-crud/src/controller/model/request"
 	"github.com/hemilioaraujo/first-go-crud/src/model"
+	"github.com/hemilioaraujo/first-go-crud/src/model/service"
 	"go.uber.org/zap"
 )
 
@@ -28,7 +29,8 @@ func CreateUser(c *gin.Context) {
 		userRequest.Age,
 	)
 
-	if err := domain.CreateUser(); err != nil {
+	service := service.NewUserDomainService()
+	if err := service.CreateUser(domain); err != nil {
 		logger.Error("Error creating user", err,
 			zap.String("journey", "create_user"),
 		)
