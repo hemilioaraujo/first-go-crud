@@ -1,12 +1,11 @@
 package controller
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/logger"
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/validation"
 	"github.com/hemilioaraujo/first-go-crud/src/controller/model/request"
+	"github.com/hemilioaraujo/first-go-crud/src/model"
 	"go.uber.org/zap"
 )
 
@@ -22,5 +21,20 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(userRequest)
+	domain := model.NewUserDomain(
+		userRequest.Email,
+		userRequest.Password,
+		userRequest.Name,
+		userRequest.Age,
+	)
+
+	if err := domain.CreateUser(); err != nil {
+		logger.Error("Error creating user", err,
+			zap.String("journey", "create_user"),
+		)
+		c.JSON(err.Code, err)
+		return
+	}
+
+	c.JSON(200, domain)
 }
