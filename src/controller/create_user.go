@@ -1,12 +1,14 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/logger"
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/validation"
 	"github.com/hemilioaraujo/first-go-crud/src/controller/model/request"
 	"github.com/hemilioaraujo/first-go-crud/src/model"
-	"github.com/hemilioaraujo/first-go-crud/src/model/service"
+	"github.com/hemilioaraujo/first-go-crud/src/view"
 	"go.uber.org/zap"
 )
 
@@ -29,8 +31,7 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 		userRequest.Age,
 	)
 
-	service := service.NewUserDomainService()
-	if err := service.CreateUser(domain); err != nil {
+	if err := uc.service.CreateUser(domain); err != nil {
 		logger.Error("Error creating user", err,
 			zap.String("journey", "create_user"),
 		)
@@ -38,5 +39,10 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, domain)
+	var tags []zap.Field
+	tags = append(tags, zap.String("journey", "create_user"))
+	tags = append(tags, zap.Any("user", view.ConvertDomainToResponse(domain)))
+	logger.Info("User created", tags...)
+
+	c.JSON(http.StatusCreated, view.ConvertDomainToResponse(domain))
 }
