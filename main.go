@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/hemilioaraujo/first-go-crud/src/configuration/database/mongodb"
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/logger"
 	"github.com/hemilioaraujo/first-go-crud/src/controller"
 	"github.com/hemilioaraujo/first-go-crud/src/controller/routes"
@@ -12,6 +13,7 @@ import (
 
 func main() {
 	logger.Info("Starting application...")
+	mongodb.NewMongoDBConnection()
 	err := godotenv.Load()
 	if err != nil {
 		logger.Error("Error loading .env file", err, zap.String("journey", "main"))
