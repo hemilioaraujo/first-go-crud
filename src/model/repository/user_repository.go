@@ -1,0 +1,19 @@
+package repository
+
+import (
+	"github.com/hemilioaraujo/first-go-crud/src/configuration/rest_err"
+	"github.com/hemilioaraujo/first-go-crud/src/model"
+	"go.mongodb.org/mongo-driver/v2/mongo"
+)
+
+func NewUserRepository(dbConnection *mongo.Database) UserRepository {
+	return &userRepository{dbConnection}
+}
+
+type userRepository struct {
+	dbConnection *mongo.Database
+}
+
+type UserRepository interface {
+	CreateUser(userDomain model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr)
+}
