@@ -7,6 +7,8 @@ import (
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/logger"
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/rest_err"
 	"github.com/hemilioaraujo/first-go-crud/src/model"
+	"github.com/hemilioaraujo/first-go-crud/src/model/repository/entity/converter"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 var (
@@ -18,17 +20,14 @@ func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (mode
 	collection_name := os.Getenv(MONGODB_USER_COLLECTION)
 	collection := ur.dbConnection.Collection(collection_name)
 
-	jsonValue, err := userDomain.GetJSONValue()
-	if err != nil {
-		return nil, rest_err.NewInternalServerError(err.Error())
-	}
+	jsonValue := converter.ConvertDomainToEntity(userDomain)
 
 	result, err := collection.InsertOne(context.Background(), jsonValue)
 	if err != nil {
 		return nil, rest_err.NewInternalServerError(err.Error())
 	}
 
-	userDomain.SetID(result.InsertedID.(string))
+	jsonValue.ID = result.InsertedID.(bson.ObjectID)
 
-	return userDomain, nil
+	return converter.ConvertEntityToDomain(jsonValue), nil
 }

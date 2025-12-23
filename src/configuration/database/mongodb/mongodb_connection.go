@@ -19,10 +19,12 @@ func NewMongoDBConnection() (*mongo.Database, error) {
 
 	mongodb_uri := os.Getenv(MONGODB_URI)
 	mongodb_database := os.Getenv(MONGODB_USER_DATABASE)
+
 	client, err := mongo.Connect(options.Client().ApplyURI(mongodb_uri))
 	if err != nil {
 		return nil, err
 	}
+
 	if err := client.Ping(context.Background(), nil); err != nil {
 		return nil, err
 	}
