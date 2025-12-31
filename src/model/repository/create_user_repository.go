@@ -11,23 +11,19 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
-var (
-	MONGODB_USER_COLLECTION = "MONGODB_USER_COLLECTION"
-)
-
 func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr) {
 	logger.Info("Init createUser repository")
 	collection_name := os.Getenv(MONGODB_USER_COLLECTION)
 	collection := ur.dbConnection.Collection(collection_name)
 
-	jsonValue := converter.ConvertDomainToEntity(userDomain)
+	value := converter.ConvertDomainToEntity(userDomain)
 
-	result, err := collection.InsertOne(context.Background(), jsonValue)
+	result, err := collection.InsertOne(context.Background(), value)
 	if err != nil {
 		return nil, rest_err.NewInternalServerError(err.Error())
 	}
 
-	jsonValue.ID = result.InsertedID.(bson.ObjectID)
+	value.ID = result.InsertedID.(bson.ObjectID)
 
-	return converter.ConvertEntityToDomain(jsonValue), nil
+	return converter.ConvertEntityToDomain(value), nil
 }
