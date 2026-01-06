@@ -1,8 +1,6 @@
 package service
 
 import (
-	"fmt"
-
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/logger"
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/rest_err"
 	"github.com/hemilioaraujo/first-go-crud/src/model"
@@ -13,7 +11,11 @@ func (ud *userDomainService) CreateUserServices(userDomain model.UserDomainInter
 	logger.Info("Creating user", zap.String("journey", "create_user"))
 	userDomain.EncryptPassword()
 
-	fmt.Println(userDomain)
+	user, _ := ud.userRepository.FindUserByEmail(userDomain.GetEmail())
+	if user != nil {
+		return nil, rest_err.NewBadRequestError("email already exists")
+	}
+
 	userDomainRepository, err := ud.userRepository.CreateUser(userDomain)
 	if err != nil {
 		return nil, err
