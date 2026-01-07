@@ -46,3 +46,7 @@ func NewNotFoundError(message string) *RestErr {
 func NewForbiddenError(message string) *RestErr {
 	return NewRestErr(message, "forbidden", http.StatusForbidden, nil)
 }
+
+func NewUnauthorizedError(message string) *RestErr {
+	return NewRestErr(message, "unauthorized", http.StatusUnauthorized, nil)
+}
