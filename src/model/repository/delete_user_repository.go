@@ -6,7 +6,8 @@ import (
 
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/logger"
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/rest_err"
-	"go.mongodb.org/mongo-driver/v2/bson"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.uber.org/zap"
 )
 
@@ -15,7 +16,7 @@ func (ur *userRepository) DeleteUser(userId string) *rest_err.RestErr {
 	collection_name := os.Getenv(MONGODB_USER_COLLECTION)
 	collection := ur.dbConnection.Collection(collection_name)
 
-	userIdHex, err := bson.ObjectIDFromHex(userId)
+	userIdHex, err := primitive.ObjectIDFromHex(userId)
 	if err != nil {
 		return rest_err.NewBadRequestError("userId is not a valid hex")
 	}

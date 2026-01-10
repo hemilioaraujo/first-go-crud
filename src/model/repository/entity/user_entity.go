@@ -1,13 +1,13 @@
 package entity
 
 import (
-	"go.mongodb.org/mongo-driver/v2/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type UserEntity struct {
-	ID       bson.ObjectID `json:"id" bson:"_id,omitempty"`
-	Email    string        `bson:"email,omitempty"`
-	Password string        `bson:"password,omitempty"`
-	Name     string        `bson:"name,omitempty"`
-	Age      int8          `bson:"age,omitempty"`
+	ID       primitive.ObjectID `json:"id" bson:"_id,omitempty"`
+	Email    string             `bson:"email,omitempty"`
+	Password string             `bson:"password,omitempty"`
+	Name     string             `bson:"name,omitempty"`
+	Age      int8               `bson:"age,omitempty"`
 }

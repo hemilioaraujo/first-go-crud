@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/logger"
-	"go.mongodb.org/mongo-driver/v2/mongo"
-	"go.mongodb.org/mongo-driver/v2/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var (
@@ -20,7 +20,7 @@ func NewMongoDBConnection() (*mongo.Database, error) {
 	mongodb_uri := os.Getenv(MONGODB_URI)
 	mongodb_database := os.Getenv(MONGODB_USER_DATABASE)
 
-	client, err := mongo.Connect(options.Client().ApplyURI(mongodb_uri))
+	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(mongodb_uri))
 	if err != nil {
 		return nil, err
 	}

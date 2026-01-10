@@ -9,8 +9,9 @@ import (
 	"github.com/hemilioaraujo/first-go-crud/src/model"
 	"github.com/hemilioaraujo/first-go-crud/src/model/repository/entity"
 	"github.com/hemilioaraujo/first-go-crud/src/model/repository/entity/converter"
-	"go.mongodb.org/mongo-driver/v2/bson"
-	"go.mongodb.org/mongo-driver/v2/mongo"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/zap"
 )
 
@@ -47,7 +48,7 @@ func (ur *userRepository) FindUserById(userId string) (model.UserDomainInterface
 	collection := ur.dbConnection.Collection(collection_name)
 	userEntity := &entity.UserEntity{}
 
-	objectId, _ := bson.ObjectIDFromHex(userId)
+	objectId, _ := primitive.ObjectIDFromHex(userId)
 	filter := bson.D{{Key: "_id", Value: objectId}}
 	err := collection.FindOne(context.Background(), filter).Decode(userEntity)
 

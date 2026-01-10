@@ -8,7 +8,7 @@ import (
 	"github.com/hemilioaraujo/first-go-crud/src/configuration/rest_err"
 	"github.com/hemilioaraujo/first-go-crud/src/model"
 	"github.com/hemilioaraujo/first-go-crud/src/model/repository/entity/converter"
-	"go.mongodb.org/mongo-driver/v2/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr) {
@@ -23,7 +23,7 @@ func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (mode
 		return nil, rest_err.NewInternalServerError(err.Error())
 	}
 
-	value.ID = result.InsertedID.(bson.ObjectID)
+	value.ID = result.InsertedID.(primitive.ObjectID)
 
 	return converter.ConvertEntityToDomain(value), nil
 }
