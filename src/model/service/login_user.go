@@ -11,7 +11,7 @@ func (ud *userDomainService) LoginUserServices(userDomain model.UserDomainInterf
 	logger.Info("Init loggin user", zap.String("journey", "login_user"))
 	userDomain.EncryptPassword()
 
-	user, err := ud.userRepository.FindUserByEmailAndPassword(
+	user, err := ud.findUserByEmailAndPasswordServices(
 		userDomain.GetEmail(),
 		userDomain.GetPassword(),
 	)

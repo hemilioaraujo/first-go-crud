@@ -1,0 +1,229 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: FirstGoCrud
+meta:
+  id: wrk_4b8bc0448b774c3eb810f72e4d943e6b
+  created: 1768144988951
+  modified: 1768144988951
+  description: ""
+collection:
+  - name: first-go-crud
+    meta:
+      id: fld_af4bb9b80fcc4fa7862d67e188f5db4f
+      created: 1766082458139
+      modified: 1766082819887
+      sortKey: -1766082458139
+      description: ""
+    children:
+      - url: localhost:8080/createUser
+        name: createUser
+        meta:
+          id: req_ab0433b81b3844438589b64a759e27a6
+          created: 1766019372373
+          modified: 1768064144931
+          isPrivate: false
+          description: ""
+          sortKey: -1766082825047
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email":"abcdefs@test.com",
+            	"password":"testes!",
+            	"name":"tastando",
+            	"age":12
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/getUserById/6964f23f395c07df741503f8
+        name: getUserById
+        meta:
+          id: req_0002417fabae43f28b68601f3fc5cba1
+          created: 1766019437002
+          modified: 1768223340305
+          isPrivate: false
+          description: ""
+          sortKey: -1766082825147
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'header', 'req_3d242d467bb94ed4ba088d42617a5914',
+            'b64::QXV0aG9yaXphdGlvbg==::46b', 'when-expired', 60 %}"
+          prefix: ""
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/getUserByEmail/abcdefs@test.com
+        name: getUserByEmail
+        meta:
+          id: req_cdd03b8f40a8484da6485e48bf658e09
+          created: 1766083667391
+          modified: 1768064171560
+          isPrivate: false
+          description: ""
+          sortKey: -1766082825097
+        method: GET
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"a":"b"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        authentication:
+          type: bearer
+          token: "{% response 'header', 'req_3d242d467bb94ed4ba088d42617a5914',
+            'b64::QXV0aG9yaXphdGlvbg==::46b', 'when-expired', 60 %}"
+          prefix: ""
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/updateUser/6964f23f395c07df741503f8
+        name: updateUser
+        meta:
+          id: req_33d1c067135d4f8fb315613cfd493820
+          created: 1766083713977
+          modified: 1768223350457
+          isPrivate: false
+          description: ""
+          sortKey: -1766082825072
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name":"testando 54321",
+            	"age":23
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/deleteUser/695d3cb20250104e7e3a85d3
+        name: deleteUser
+        meta:
+          id: req_84fb4db3fd514efcb0cd1228e8da7e67
+          created: 1766083754382
+          modified: 1767718085120
+          isPrivate: false
+          description: ""
+          sortKey: -1766082825059.5
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8080/login
+        name: login
+        meta:
+          id: req_3d242d467bb94ed4ba088d42617a5914
+          created: 1767719905065
+          modified: 1768064203097
+          isPrivate: false
+          description: ""
+          sortKey: -1766082825247
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email":"abcdefs@test.com",
+            	"password":"testes!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.2.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_d7b3c7e7aae64bc1b0da23303380f60a
+    created: 1759600978287
+    modified: 1759600987069
+  cookies:
+    - id: 5b9a790f-db2a-4848-8e31-98681407e048
+      key: JSESSIONID
+      value: ZUmwZEnTgiPsaxnx8qLG39Wizgf9QgBBL4z1EyK0X0eRCsJ-RZml!1850546016
+      domain: portalsped.fazenda.mg.gov.br
+      path: /
+      secure: false
+      httpOnly: true
+      hostOnly: true
+environments:
+  name: Base Environment
+  meta:
+    id: env_53c4e4477c934a668c8e4b95b6dd7411
+    created: 1759600978286
+    modified: 1759600978286
+    isPrivate: false
